@@ -25,16 +25,15 @@ pipeline {
             }
         } 
         
-        stage('code review'){
+        stage(" Sonarqube Analysis "){
             steps{
-                withSonarQubeEnv('Sonar-Server-9.4'){
-                def mavenHome = tool name: "Maven-3.8.6", type:"maven"
-                def mavenCMD = "${mavenHome}/bin/mvn"
-                sh "${mavenCMD} sonar:sonar"
-                }
-        }
-        
-    } 
+                 withSonarQubeEnv('Sonar-Server-9.4') {
+                    sh ''' $SCANNER_HOME/bin/SonarQube -Dsonar.projectName=Python-webapp \
+                    -Dsonar.projectKey=Python-webapp '''
+                    
+                 }
+            }
+        } 
         
         stage("Docker Build and Tag  "){
             steps{
