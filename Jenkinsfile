@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        SCANNER_HOME=tool 'SonarQube'
+    }
+
     stages {
         stage('Git Checkout') {
             steps {
@@ -23,10 +27,11 @@ pipeline {
         
         stage(" Sonarqube Analysis "){
             steps{
-                 withSonarQubeEnv(credentialsId: 'sonarqube') {
+                 withSonarQubeEnv('sonar') {
+                    sh ''' $SCANNER_HOME/bin/SonarQube -Dsonar.projectName=Python-webapp \
+                    -Dsonar.projectKey=Python-webapp '''
                     
-                    sh 'mvn clean package sonar:sonar'
-                        }
+                 }
             }
         } 
         
