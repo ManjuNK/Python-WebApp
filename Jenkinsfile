@@ -21,16 +21,12 @@ pipeline {
             }
         } 
         
-        stage(" Sonarqube Analysis "){
-            steps{
-                stage('code review'){
-                    withSonarQubeEnv('Sonar-Server-9.4'){
+        stage('Sonarqube Analysis'){
+            withSonarQubeEnv('Sonar-Server-9.4'){
                         
                         sh "mvn sonar:sonar"
-                    }
-                }
-            }
-        } 
+                        }
+                 }
         
         stage("Docker Build and Tag  "){
             steps{
