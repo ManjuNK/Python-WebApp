@@ -1,9 +1,5 @@
 pipeline {
     agent any
-      
-    environment {
-        SCANNER_HOME=tool 'sonar-scanner'
-    }
 
     stages {
         stage('Git Checkout') {
@@ -29,7 +25,7 @@ pipeline {
             steps{
 
                 script{
-                    
+
                   withSonarQubeEnv(credentialsId: 'sonarqube') {
 
                             sh 'mvn clean package sonar:sonar'
