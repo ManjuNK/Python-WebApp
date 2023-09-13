@@ -21,13 +21,15 @@ pipeline {
             }
         } 
         
-        stage('Sonarqube Analysis'){
-            withSonarQubeEnv('Sonar-Server-9.4'){
-                 steps{       
-                        sh "mvn sonar:sonar"
-                        }
+        stage(" Sonarqube Analysis "){
+            steps{
+                 withSonarQubeEnv(credentialsId: 'sonarqube') {
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Python-webapp \
+                    -Dsonar.projectKey=Python-webapp '''
+                    
+                 }
             }
-         }
+        } 
         
         stage("Docker Build and Tag  "){
             steps{
