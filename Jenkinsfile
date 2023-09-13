@@ -23,10 +23,11 @@ pipeline {
         
         stage('Sonarqube Analysis'){
             withSonarQubeEnv('Sonar-Server-9.4'){
-                        
+                 steps{       
                         sh "mvn sonar:sonar"
                         }
-                 }
+            }
+         }
         
         stage("Docker Build and Tag  "){
             steps{
