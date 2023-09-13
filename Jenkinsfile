@@ -27,7 +27,7 @@ pipeline {
         
         stage(" Sonarqube Analysis "){
             steps{
-                 withSonarQubeEnv('sonar') {
+                 withSonarQubeEnv('sonarqube') {
                     sh ''' $SCANNER_HOME/bin/SonarQube -Dsonar.projectName=Python-webapp \
                     -Dsonar.projectKey=Python-webapp '''
                     
