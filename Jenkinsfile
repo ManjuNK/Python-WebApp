@@ -23,11 +23,10 @@ pipeline {
         
         stage(" Sonarqube Analysis "){
             steps{
-                 withSonarQubeEnv('Sonar-Server-9.4') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Python-webapp \
-                    -Dsonar.projectKey=Python-webapp '''
+                 withSonarQubeEnv(credentialsId: 'sonarqube') {
                     
-                 }
+                    sh 'mvn clean package sonar:sonar'
+                        }
             }
         } 
         
