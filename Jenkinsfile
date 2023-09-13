@@ -23,13 +23,11 @@ pipeline {
         
         stage(" Sonarqube Analysis "){
             steps{
-
-                script{
-
-                  withSonarQubeEnv(credentialsId: 'sonarqube') {
-
-                            sh 'mvn clean package sonar:sonar'
-                        }
+                stage('code review'){
+                    withSonarQubeEnv('Sonar-Server-9.4'){
+                        
+                        sh "mvn sonar:sonar"
+                    }
                 }
             }
         } 
